@@ -25,12 +25,12 @@ def train():
     dictionary_input, rev_dictionary_input = model.tokenizer.vocab,  model.tokenizer.inv_vocab
 
     min_line_length = 2
-    max_line_length = 100
+    max_line_length = 1000
 
     data_filter = [(q, a) for q, a in zip(inputs, outputs) if
                               len_check(q, min_line_length, max_line_length) and len_check(a, min_line_length,
                                                                                            max_line_length)]
-    # random.shuffle(data_filter)
+    random.shuffle(data_filter)
 
     inputs = [['[CLS]']+  q.split() + ['[SEP]'] for q, a in data_filter]
     outputs = [ a.split() + ['[unused2]'] for q, a in data_filter]
@@ -46,8 +46,8 @@ def train():
         tag_ids = model.tokenizer.convert_tokens_to_ids(outputs[i])
         data.append([tokens, tag_ids, inputs_ids, segment_ids, input_mask])
 
-    data_train = data[:200]
-    data_dev = data[-50:]
+    data_train = data[:99]
+    data_dev = data[-99:]
 
     with tf.Session() as sess:
         with tf.device("/cpu:0"):
@@ -112,12 +112,12 @@ def train():
 
 
                         print("+" * 20)
-                        for i in range(4):
+                        for i in range(7):
                             print('row %d' % (i + 1))
                             print('question:',''.join([rev_dictionary_input[n] for n in inputs_ids[i] if n not in [0]]))
                             print('real question:',''.join([rev_dictionary_output[n] for n in tag_ids[i] if n not in [0]]))
                             print('answer decoding:',''.join([rev_dictionary_output[n] for n in predicted[i] if n not in [0]]))
-                            # print('input embedding:',input_embedding[i,])
+                            #print('input embedding:',input_embedding[i,])
                             print("+" * 20)
 
 
@@ -133,12 +133,12 @@ def train():
                             model.dropout:1.0
                         })
                         print("-" * 20)
-                        for i in range(4):
+                        for i in range(7):
                             print('row %d' % (i + 1))
-                            print('dream:', ''.join([rev_dictionary_input[n] for n in inputs_ids[i] if n not in [0]]))
+                            print('question:', ''.join([rev_dictionary_input[n] for n in inputs_ids[i] if n not in [0]]))
                             print('real   meaning:', ''.join([rev_dictionary_output[n] for n in tag_ids[i] if n not in [0]]))
-                            print('dream decoding:', ''.join([rev_dictionary_output[n] for n in predicted[i] if n not in [0]]))
-                            # print('dream decoding2:',' '.join([str(n) for n in predicted[i]]))
+                            print('answer decoding:', ''.join([rev_dictionary_output[n] for n in predicted[i] if n not in [0]]))
+                            #print('answer decoding2:',' '.join([str(n) for n in predicted[i]]))
                             print("-" * 20)
 
                 total_loss /= batch_num
@@ -148,12 +148,13 @@ def train():
 
 
 def predict():
-    model = Seq2Seq(args.size_layer,
-                    args.num_layers,
-                    args.learning_rate,
-                    args.vocab_file,
-                    args.bert_config,
-                    args.is_training,
+
+    model = Seq2Seq(256,
+                    2,
+                    0.001,
+                    'chinese_L-12_H-768_A-12/vocab.txt',
+                    'chinese_L-12_H-768_A-12/bert_config.json',
+                    False,
                     )
     dictionary_output, rev_dictionary_output = model.tokenizer.vocab,  model.tokenizer.inv_vocab
     dictionary_input, rev_dictionary_input = model.tokenizer.vocab,  model.tokenizer.inv_vocab
@@ -161,7 +162,7 @@ def predict():
     with tf.Session() as sess:
         with tf.device("/cpu:0"):
 
-            ckpt = tf.train.get_checkpoint_state(args.checkpoint_dir)
+            ckpt = tf.train.get_checkpoint_state('result')
             if ckpt and tf.train.checkpoint_exists(ckpt.model_checkpoint_path):
                 tf.logging.info("restore model from patch: %s", ckpt.model_checkpoint_path)  # 加载预训练模型
                 saver = tf.train.Saver(max_to_keep=4)
@@ -173,7 +174,7 @@ def predict():
             while True:
                 text = input("输入您要咨询的问题:")
                 inputs = ['[CLS]'] + list(text) + ['[SEP]']
-                # inputs =  list(text)
+                #inputs =  list(text)
                 inputs_ids = model.tokenizer.convert_tokens_to_ids(inputs)
                 segment_ids = [0] * len(inputs_ids)
                 input_mask = [1] * len(inputs_ids)
