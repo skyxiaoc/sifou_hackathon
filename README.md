@@ -46,7 +46,7 @@
 
 ## 作品截图
 <div align=center>
-    <img src="static/images/OpenPage.jpg" width="302" height="584"> <img src="static/images/img.png" width="302" height="584"> <img src="static/images/img2.png" width="302" height="584"/>
+    <img src="static/images/OpenPage.jpg" width="302" height="584"> <img src="static/images/img.png" width="302" height="584"> <img src="static/images/img3.png" width="302" height="584"/>
 </div>
 
 ## 团队介绍
