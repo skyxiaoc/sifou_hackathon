@@ -15,7 +15,7 @@
       联系方式
     </a>
     <span> | </span>
-    <a href="https://github.com/skyxiaoc/sifou_hackathon#安装、编译指南">
+    <a href="https://github.com/skyxiaoc/sifou_hackathon#安装&编译指南">
       安装&编译指南
     </a>
     
