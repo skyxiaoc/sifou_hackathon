@@ -48,7 +48,7 @@
 <div align=center>
     <img src="static/images/OpenPage.jpg" width="302" height="584"> <img src="static/images/img.png" width="302" height="584"> <img src="static/images/img3.png" width="302" height="584"/>
 </div>
-![img.png](img.png)
+
 ## 团队介绍
 **为本次马拉松成立，在短时间（周末）内找到创意和技术选型**
 * 兰毅
