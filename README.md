@@ -16,7 +16,7 @@
     </a>
     <span> | </span>
     <a href="https://github.com/skyxiaoc/sifou_hackathon#安装、编译指南">
-      安装、编译指南
+      安装&编译指南
     </a>
     
   </h3>
@@ -68,7 +68,7 @@
 ## 联系方式
 **zonghengnihao@sina.com**
 
-## 安装、编译指南
+## 安装&编译指南
 ### 依赖
 
     python >= 3.6
@@ -110,9 +110,9 @@
         --checkpoint_dir=result
 
 
-## 模型测试与部署
+### 模型测试与部署
 1. 模型训练完毕后，运行webapi.py即可开启本机测试接口
 2. 模型通过flask框架共享预测接口，前端通过api方式（post）进行预测
 3. 前端通过uniapp进行搭建，源码以给出，可以进行跨平台多端部署
-## 使用到的 Google 技术
+### 使用到的 Google 技术
 基于tensorflow-bert-seq2seq实现老人（NLP）意图识别的“宝宝发育咨询抖音小程序”
