@@ -1,6 +1,6 @@
 
 <p align="center"><img src="https://s1.ax1x.com/2022/09/07/vH21pT.png" width="100" height="100"></p>
-<h1 align="center">小核桃早教</h1>
+<h1 align="center">小核桃</h1>
 <div align="center">
   <h3>
     <a href="https://github.com/skyxiaoc/sifou_hackathon#作品介绍">
